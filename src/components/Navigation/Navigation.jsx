@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
-import { fetchMovieReviews } from "../../api";
-import { useParams } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import styles from './Navigation.module.css';
 
-const MovieReviews = () => {
-    const { movieId } = useParams();
-    const [reviews, setReviews] = useState([]);
-
-    useEffect(() => {
-        fetchMovieReviews(movieId).then(setReviews);
-    }, [movieId]);
-
+function Navigation() {
     return (
-        <ul>
-            {reviews.map((review) => (
-                <li key={review.id}>
-                    <h3>{review.author}</h3>
-                    <p>{review.content}</p>
-                </li>
-            ))}
-        </ul>
+        <nav className={styles.nav}>
+            <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+            >
+                Home
+            </NavLink>
+            <NavLink
+                to="/movies"
+                className={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+            >
+                Movies
+            </NavLink>
+        </nav>
     );
-};
+}
 
-export default MovieReviews;
+export default Navigation;
+
